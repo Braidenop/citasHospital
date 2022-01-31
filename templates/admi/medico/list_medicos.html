@@ -1,0 +1,36 @@
+{% extends 'admi/lista_admi.html' %}
+
+    {% block colums %}
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cedula</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Foto</th>
+            <th>Genero</th>
+            <th>Opciones</th>
+
+        </tr>
+    {% endblock %}
+
+    {% block rows %}
+        {% for medi in object_list %}
+    <tr>
+        <td>{{ medi.id }}</td>
+        <td>{{ medi.nombre}}</td>
+        <td>{{ medi.apellido}}</td>
+        <td>{{ medi.cedula}}</td>
+        <td>{{ medi.direccion}}</td>
+        <td>{{ medi.telefono}}</td>
+        <td>{{ medi.foto}}</td>
+        <td>{{ medi.genero}}</td>
+        <td>
+        <a href="{% url 'admi:editar_medi' medi.id %}" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+        <a href="{% url 'admi:eliminar_medi' medi.id %}" type="button" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
+        </td>
+
+    </tr>
+        {% endfor %}
+    {% endblock %}

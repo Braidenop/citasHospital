@@ -1,0 +1,94 @@
+{% extends 'login.html' %}
+    {% block content %}
+    <div class="container">
+		<div class="row">
+			<div class="col s12">
+			      <div class="section">
+					<h4>Datos de Usuario</h4>
+					<p>
+						Ingresa tu nombre de usuario, correo y contraseña que utilizaras para iniciar sesión.
+					</p>
+					<form class ="col s12" method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="section">
+							<div class="input-field col s6">
+								<label>Nombre de Usuario:</label>
+								{{ usuarioForm.username }}
+								{{ usuarioForm.username.errors }}
+							</div>
+							<div class="input-field col s6">
+								<label>Correo:</label>
+								{{ usuarioForm.email }}
+								{{ usuarioForm.email.errors }}
+							</div>
+							<div class="input-field col s6">
+								<label>Contraseña:</label>
+								{{ usuarioForm.password }}
+								{{ usuarioForm.password.errors }}
+							</div>
+							<div class="input-field col s6">
+								<label>Repite la contraseña:</label>
+								{{ usuarioForm.passwordCheck }}
+								{{ usuarioForm.passwordCheck.errors }}
+							</div>
+						</div>
+
+						<div class="section">
+							<h4>Datos de Paciente</h4>
+							<p>Ingresa tus datos personales, para las citas y las consultas.</p>
+							<div class="row">
+								<div class="input-field col s6">
+									<label>Nombre</label>
+									{{ pacienteForm.nombre }}
+									{{ pacienteForm.nombre.errors }}
+								</div>
+								<div class="input-field col s6">
+									<label>Apellido</label>
+									{{ pacienteForm.apellido }}
+									{{ pacienteForm.apellido.errors }}
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s6">
+									<label>Cedula</label>
+									{{ pacienteForm.cedula }}
+									{{ pacienteForm.cedula.errors }}
+								</div>
+								<div class="input-field col s6">
+									{{ pacienteForm.direccion }}
+									{{ pacienteForm.direccion.errors }}
+									<label>Dirección</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="input-field col s12">
+							      {{ pacienteForm.foto }}
+							      {{ pacienteForm.foto.errors }}
+							    </div>
+								<div class="input-field col s6">
+                                    <label>Genero</label>
+									{{ pacienteForm.genero }}
+									{{ pacienteForm.genero.errors }}
+								</div>
+
+								<div class="input-field col s6">
+									<label>Telefono</label>
+									{{ pacienteForm.telefono }}
+									{{ pacienteForm.telefono.errors }}
+								</div>
+							</div>
+							<div class="input-field center-align">
+							<button type="reset" value="reset" class="waves-effect waves-light btn">Limpiar</button>
+
+							</div>
+                            <div class="text-center text-lg-start mt-2 pt-2">
+                            <button  type="submit" class=" waves-effect waves-light btn btn alert-danger" >Registrarse</button>
+                            </div>
+						</div>
+
+					</form>
+			      </div>
+			</div>
+		</div>
+	</div>
+    {% endblock %}

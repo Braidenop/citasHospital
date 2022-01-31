@@ -1,0 +1,26 @@
+{% extends 'homePaciente.html' %}
+{% block contentPa %}
+
+    <form method="POST" >
+    {% csrf_token %}
+{#        <div class="input-field col s6">#}
+{#            <label>Escoge la disponibilidad:</label>#}
+{#            {{ agendarcitaForm.esp_medic }}#}
+{#            {{ agendarcitaForm.esp_medic.errors }}#}
+{#        </div>#}
+{#        <div class="datetime">#}
+{#            <label>Escoge la Fecha</label>#}
+{#            {{ agendarcitaForm.fecha_cita }}#}
+{#            {{ agendarcitaForm.fecha_cita.errors }}#}
+{#        </div>#}
+{#        <div class="input-field col s6">#}
+{#            <label>Cual es el motivo de la cita</label>#}
+{#            {{ agendarcitaForm.motivo }}#}
+{#            {{ agendarcitaForm.motivo.errors }}#}
+{#        </div>#}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn alert-danger" > Aceptar </button>
+    <button type="#" class="btn btn badge-success" > <a href="{% url 'citas:lista_citas' %}">Volver </a> </button>
+    </form>
+
+{% endblock %}
