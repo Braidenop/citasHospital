@@ -1,0 +1,26 @@
+{% extends 'admi/lista_admi.html' %}
+
+    {% block colums %}
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Opciones</th>
+
+        </tr>
+    {% endblock %}
+
+    {% block rows %}
+        {% for exa in object_list %}
+    <tr>
+        <td>{{ exa.id }}</td>
+        <td>{{ exa.nombre }}</td>
+        <td>{{ exa.descrip}}</td>
+        <td>
+        <a href="{% url 'admi:editar_exa' exa.id %}" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+        <a href="{% url 'admi:eliminar_exa' exa.id %}" type="button" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
+        </td>
+
+    </tr>
+        {% endfor %}
+    {% endblock %}

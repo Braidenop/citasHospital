@@ -1,0 +1,26 @@
+{% extends 'admi/lista_admi.html' %}
+
+    {% block colums %}
+        <tr>
+            <th>ID</th>
+            <th>Medicamento</th>
+            <th>Indicaciones</th>
+            <th>Opciones</th>
+
+        </tr>
+    {% endblock %}
+
+    {% block rows %}
+        {% for rec in object_list %}
+    <tr>
+        <td>{{ rec.id }}</td>
+        <td>{{ rec.medicamento }}</td>
+        <td>{{ rec.descripcion}}</td>
+        <td>
+        <a href="{% url 'admi:editar_receta' rec.id %}" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+        <a href="{% url 'admi:eliminar_receta' rec.id %}" type="button" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
+        </td>
+
+    </tr>
+        {% endfor %}
+    {% endblock %}

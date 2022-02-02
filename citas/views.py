@@ -11,9 +11,10 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect, render
 from .forms import LoginForm, FormularioLogin, AgendaCitaForm
-from .models import Usuario, Paciente, Cita, Consulta
+from .models import Usuario, Paciente, Cita, Consulta, Especialidad_Medico
 from .forms import LoginForm, RegistroUsuarioForm, RegistroPacienteForm
 from django.contrib.auth import views as auth_views
+from django import forms
 
 # Create your views here.
 """

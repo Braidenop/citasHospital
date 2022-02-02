@@ -39,6 +39,7 @@
 
 {% endblock %}
 </body>
+
  <!-- JavaScript Libraries -->
     <script src="{% static 'lib/dentcare/js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'lib/dentcare/js/bootstrap.bundle.min.js' %}"></script>
@@ -54,4 +55,6 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'lib/dentcare/js/main.js' %}"></script>
+    {% block JSextra %}
+    {% endblock %}
 </html>

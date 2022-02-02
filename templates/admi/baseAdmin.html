@@ -103,6 +103,25 @@
                         <h6 class="collapse-header">Opciones</h6>
                         <a class="collapse-item" href="{% url 'admi:lista_medi' %}">Lista de Medicos</a>
                         <a class="collapse-item" href="{% url 'admi:crear_medi' %}">Agregar un Médico</a>
+                        <a class="collapse-item" href="{% url 'admi:crear_dipo' %}">Agregar Horarios </a>
+                        <a class="collapse-item" href="{% url 'admi:lista_dipo' %}">Mostrar Disponibilidad</a>
+                    </div>
+                </div>
+            </li>
+
+             <!-- Nav Item - Cita Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCita"
+                    aria-expanded="true" aria-controls="collapseCita">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Cita</span>
+                </a>
+                <div id="collapseCita" class="collapse" aria-labelledby="headingCita"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones</h6>
+                        <a class="collapse-item" href="{% url 'admi:lista_cita' %}">Lista de Citas</a>
+                        <a class="collapse-item" href="{% url 'admi:crear_cita' %}">Crear una Cita</a>
                     </div>
                 </div>
             </li>
@@ -112,42 +131,59 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Laboratorio
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Examenes Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseExamen"
+                    aria-expanded="true" aria-controls="collapseExamen">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                    <span>Examenes</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseExamen" class="collapse" aria-labelledby="headingExamen" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <a class="collapse-item" href="{% url 'admi:lista_exa' %}">Lista de Examenes</a>
+                        <a class="collapse-item" href="{% url 'admi:crear_exa' %}">Crear examen</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Farmacia
+            </div>
+            <!-- Nav Item - Medicamento Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMedicamento"
+                    aria-expanded="true" aria-controls="collapseMedicamento">
+                    <i class="fas fa-pills"></i>
+                    <span>Medicamento</span>
+                </a>
+                <div id="collapseMedicamento" class="collapse" aria-labelledby="headingMedicamento" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{% url 'admi:lista_medica' %}">Lista de Medicamentos</a>
+                        <a class="collapse-item" href="{% url 'admi:crear_medica' %}">Añadir Medicamento</a>
+                    </div>
+                </div>
             </li>
 
-            <!-- Nav Item - Tables -->
+            <!-- Nav Item - Recetas Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReceta"
+                    aria-expanded="true" aria-controls="collapseReceta">
+                    <i class="fas fa-file-prescription"></i>
+                    <span>Receta</span>
+                </a>
+                <div id="collapseReceta" class="collapse" aria-labelledby="headingReceta" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{% url 'admi:lista_receta' %}">Lista de Recetas</a>
+                        <a class="collapse-item" href="{% url 'admi:crear_receta' %}">Añadir Receta</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -158,12 +194,12 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="{% static 'lib/admi/img/undraw_rocket.svg' %}" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
+{#            <!-- Sidebar Message -->#}
+{#            <div class="sidebar-card d-none d-lg-flex">#}
+{#                <img class="sidebar-card-illustration mb-2" src="{% static 'lib/admi/img/undraw_rocket.svg' %}" alt="...">#}
+{#                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>#}
+{#                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>#}
+{#            </div>#}
 
         </ul>
         <!-- End of Sidebar -->

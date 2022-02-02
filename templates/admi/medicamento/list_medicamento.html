@@ -1,0 +1,30 @@
+{% extends 'admi/lista_admi.html' %}
+
+    {% block colums %}
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Presentación</th>
+            <th>Volumen</th>
+            <th>Descripción</th>
+            <th>Opciones</th>
+
+        </tr>
+    {% endblock %}
+
+    {% block rows %}
+        {% for medic in object_list %}
+    <tr>
+        <td>{{ medic.id }}</td>
+        <td>{{ medic.nombre }}</td>
+        <td>{{ medic.presentacion}}</td>
+        <td>{{ medic.volumen}}</td>
+        <td>{{ medic.descrip}}</td>
+        <td>
+        <a href="{% url 'admi:editar_medica' medic.id %}" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+        <a href="{% url 'admi:eliminar_medica' medic.id %}" type="button" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
+        </td>
+
+    </tr>
+        {% endfor %}
+    {% endblock %}

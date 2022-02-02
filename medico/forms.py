@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 
-from citas.models import Usuario, Medico
+from citas.models import Usuario, Medico, Cita, Historiaclinica
 
 
 class RegistroUsuarioForm(forms.ModelForm):
@@ -68,3 +68,19 @@ class FormularioLogin(AuthenticationForm):
         self.fields['username'].widget.attrs['placeholder'] = 'Nombre de Usuario'
         self.fields['password'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget.attrs['placeholder'] = 'Contraseña'
+
+
+class HistoriaForm(forms.ModelForm):
+    class Meta:
+        model = Historiaclinica
+        fields = ['id_cita', 'diagnostico', 'examen', 'receta']
+        widgets = {
+            'id_cita': forms.Select(),
+            'diagnostico': forms.Textarea(attrs={'placeholder': 'Ingrese el Diagnóstico', }),
+            'examen': forms.SelectMultiple(attrs={'class': 'form-control select2',
+                                                  'style': 'width: 100%',
+                                                  'multiple': 'multiple'}),
+            'receta': forms.SelectMultiple(attrs={'class': 'form-control select2',
+                                                  'style': 'width: 100%',
+                                                  'multiple': 'multiple'}),
+        }

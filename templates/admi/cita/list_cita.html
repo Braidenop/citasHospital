@@ -1,0 +1,28 @@
+{% extends 'admi/lista_admi.html' %}
+
+   {% block colums %}
+        <tr>
+            <th>ID</th>
+            <th>Cita</th>
+            <th>Fecha</th>
+            <th>Motivo</th>
+            <th>Opciones</th>
+
+        </tr>
+    {% endblock %}
+
+    {% block rows %}
+        {% for cita in object_list %}
+    <tr>
+        <td>{{ cita.id }}</td>
+        <td>{{ cita.esp_medic }}</td>
+        <td>{{ cita.fecha_cita}}</td>
+        <td>{{ cita.motivo}}</td>
+        <td>
+        <a href="{% url 'admi:editar_cita' cita.id %}" class="btn btn-warning btn-xs btn-flat"><i class="fas fa-edit"></i></a>
+        <a href="{% url 'admi:eliminar_cita' cita.id %}" type="button" class="btn btn-danger btn-xs btn-flat"><i class="fas fa-trash-alt"></i></a>
+        </td>
+
+    </tr>
+        {% endfor %}
+    {% endblock %}

@@ -1,12 +1,10 @@
 from django.db import models
-# imports necesarios para crear un Custom User Manager
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
-# Clase que hereda las funcionalidades y metodo necesario para la creacion de usuarios
 class UserManager(BaseUserManager, models.Manager):
 
-    # La siguiente funcion se encarga de crear el usuario en la base de datos, de acuerdo a los parametros recibidos
     def _create_user(self, username, email, password, is_staff,
                      is_superuser, **extra_fields):
         # se normaliza y comprueba que se reciba un correro electronico
@@ -73,8 +71,8 @@ class Especialidad(models.Model):
 class Medico(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
 
-    nombre = models.CharField(max_length=50, blank=False, null=False, verbose_name='Nombre de Paciente')
-    apellido = models.CharField(max_length=50, blank=False, null=False, verbose_name='Apellido de Paciente')
+    nombre = models.CharField(max_length=50, blank=False, null=False, verbose_name='Nombre de Medico')
+    apellido = models.CharField(max_length=50, blank=False, null=False, verbose_name='Apellido de Medico')
     cedula = models.CharField(max_length=10, unique=True, blank=False, verbose_name='Identificación')
     direccion = models.TextField(max_length=100, verbose_name='Dirección', blank=False, null=False)
     telefono = models.CharField(max_length=10, verbose_name='Numero de Telefono')
@@ -87,7 +85,7 @@ class Medico(models.Model):
     genero = models.CharField(blank=False, max_length=50, choices=choices_genero)
 
     def __str__(self):
-        return self.nombre
+        return "%s %s" % (self.nombre, self.apellido)
 
     class Meta:
         verbose_name = 'Medico'
@@ -95,8 +93,9 @@ class Medico(models.Model):
 
 
 class Especialidad_Medico(models.Model):
-    id_medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
-    id_especialidad = models.ForeignKey(Especialidad, on_delete=models.CASCADE)
+    id_medico = models.ForeignKey(Medico, on_delete=models.CASCADE, verbose_name='Nombre del Medico')
+    id_especialidad = models.ForeignKey(Especialidad, on_delete=models.CASCADE,
+                                        verbose_name='Nombre de la Especialidad')
 
     Lunes = 'Lunes'
     Martes = 'Martes'
@@ -139,6 +138,22 @@ class Especialidad_Medico(models.Model):
         (horario_1, '8:h00 - 8h30'),
         (horario_2, '8h30 - 9h00'),
         (horario_3, '9h00 - 10h00'),
+        (horario_4, '10h00 - 10h30'),
+        (horario_5, '10h30 - 11h00'),
+        (horario_6, '11h30 - 12h00'),
+        (horario_7, '12:h00 - 12h30'),
+        (horario_8, '12h30 - 13h00'),
+        (horario_9, '13h00 - 13h30'),
+        (horario_10, '13h30 - 14h00'),
+        (horario_11, '14h300 - 14h00'),
+        (horario_12, '14h00 - 14h30'),
+        (horario_13, '14:h30 - 15h00'),
+        (horario_14, '15h00 - 15h30'),
+        (horario_15, '15h30 - 16h00'),
+        (horario_16, '16h00 - 16h30'),
+        (horario_17, '16h30 - 17h00'),
+        (horario_18, '17h00 - 17h30'),
+        (horario_19, '17h30 - 18h00'),
     ]
 
     horario = models.CharField(max_length=30, choices=Horarios_de_Atencion, help_text='Seleccione el horario',
@@ -148,11 +163,11 @@ class Especialidad_Medico(models.Model):
         return "%s %s %s %s " % (self.id_medico, self.id_especialidad, self.dia_laboral, self.horario)
 
     class Meta:
-        unique_together = ['dia_laboral', 'horario']
+        unique_together = ['id_medico', 'id_especialidad', 'dia_laboral', 'horario']
 
 
 class Paciente(models.Model):
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='usuarioP')
     nombre = models.CharField(max_length=50, blank=False, null=False, verbose_name='Nombre de Paciente')
     apellido = models.CharField(max_length=50, blank=False, null=False, verbose_name='Apellido de Paciente')
     cedula = models.CharField(max_length=10, unique=True, blank=False, verbose_name='Identificación')
@@ -176,7 +191,7 @@ class Paciente(models.Model):
 
 class Cita(models.Model):
     paciente = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    esp_medic = models.ForeignKey(Especialidad_Medico, on_delete=models.CASCADE)
+    esp_medic = models.ForeignKey(Especialidad_Medico, on_delete=models.CASCADE, verbose_name='Disponibilidad')
     fecha_cita = models.DateField()
 
     Consulta = 'Consulta'
@@ -192,12 +207,13 @@ class Cita(models.Model):
     motivo = models.CharField(max_length=20, verbose_name='Motivo de cita', choices=motivo_choices)
 
     def __str__(self):
-        return "%s %s %s" % (self.paciente, self.esp_medic, self.fecha_cita)
+        return "%s %s %s %s" % (self.paciente, self.esp_medic, self.fecha_cita, self.motivo)
 
     class Meta:
         verbose_name = 'Cita'
         verbose_name_plural = 'Citas'
         unique_together = ['esp_medic', 'fecha_cita']
+
 
 class Medicamento(models.Model):
     nombre = models.CharField(blank=False, max_length=50)
@@ -207,7 +223,7 @@ class Medicamento(models.Model):
     descripcion = models.TextField(blank=True)
 
     def __str__(self):
-        return '%s - %s' % (self.nombre, self.presentacion)
+        return '%s %s' % (self.nombre, self.presentacion)
 
     class Meta:
         verbose_name = 'Medicamento'
@@ -229,18 +245,17 @@ class Consulta(models.Model):
         verbose_name_plural = 'Consultas'
 
 
-class Tratamiento(models.Model):
-    consulta = models.ForeignKey(Consulta, on_delete=models.CASCADE)
-    medicamento = models.ManyToManyField(Medicamento)
+class Receta(models.Model):
+    medicamento = models.ForeignKey(Medicamento, on_delete=models.CASCADE, verbose_name='Medicamento')
 
-    descripcion = models.TextField(blank=False)
-
-    def __str__(self):
-        return '%s - %s' % (self.consulta, self.medicamento)
+    descripcion = models.CharField(max_length=200, blank=False, verbose_name='Indicación')
 
     class Meta:
         verbose_name = 'Tratamiento'
         verbose_name_plural = 'Tratamientos'
+
+    def __str__(self):
+        return '%s %s' % (self.medicamento, self.descripcion)
 
 
 class Consultorio(models.Model):
@@ -252,3 +267,31 @@ class Consultorio(models.Model):
     telefono = models.CharField(blank=False, max_length=50)
     correo = models.EmailField(blank=False)
     foto = models.ImageField(upload_to='home')
+
+
+class Examen(models.Model):
+    nombre = models.CharField(max_length=100, unique=True, blank=False, verbose_name='Nombre del Examen')
+    descrip = models.CharField(max_length=100, verbose_name='Descripción del Examen')
+
+    def __str__(self):
+        return self.nombre
+
+
+class Historiaclinica(models.Model):
+    id_cita = models.ForeignKey(Cita, on_delete=models.CASCADE, verbose_name='Cita')
+    diagnostico = models.TextField( verbose_name='Diagnóstico')
+    examen = models.ManyToManyField(Examen)
+    receta = models.ManyToManyField(Receta)
+
+    def __str__(self):
+        return '%s %s %s' % (self.id_cita, self.examen, self.receta)
+
+    def display_examen(self):
+        return ', '.join([examen.nombre for examen in self.examen.all()])
+
+    display_examen.short_description = 'Examen'
+
+    def display_rece(self):
+        return ', '.join([receta.medicamento.descripcion for receta in self.receta.all()])
+
+    display_rece.short_description = 'Receta'
